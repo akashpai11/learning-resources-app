@@ -1,16 +1,17 @@
 <template>
   <div>
     <li>
-      <div>
+      <base-card>
         <header>
           <h3>{{ title }}</h3>
-          <button>Delete</button>
+          <!-- base button can also accept a prop named mode and we can change the looks of the button -->
+          <base-button>Delete</base-button>
         </header>
-      </div>
-      <p>{{ description }}</p>
-      <nav>
-        <a :href="link">View Resource</a>
-      </nav>
+        <p>{{ description }}</p>
+        <nav>
+          <a :href="link">View Resource</a>
+        </nav>
+      </base-card>
     </li>
   </div>
 </template>
@@ -50,10 +51,10 @@ p {
 a {
   text-decoration: none;
   font-weight: bold;
-  color: #ce5c00;
+  color: #ff8080;
 }
 a:hover,
 a:active {
-  color: #c89300;
+  color: #e05858;
 }
 </style>
