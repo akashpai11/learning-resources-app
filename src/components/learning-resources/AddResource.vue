@@ -1,4 +1,20 @@
 <template>
+  <base-dialog
+    v-if="inputIsInvalid"
+    title="Invalid Input"
+    @close="confirmError"
+  >
+    <template #default>
+      <p>Unfortunately, atleast 1 input value is invalid.</p>
+      <p>
+        Please check all the inputs and make sure you enter atleast few
+        characters in each input field
+      </p>
+    </template>
+    <template #actions>
+      <base-button mode="success" @click="confirmError">Okay</base-button>
+    </template>
+  </base-dialog>
   <base-card>
     <form @submit.prevent="submitData">
       <div>
@@ -21,7 +37,7 @@
         <label for="link">Link</label>
         <input type="url" placeholder="Enter the link" v-model="enteredLink" />
       </div>
-      <base-button type="submit">Submit</base-button>
+      <base-button type="submit" mode="success">Submit</base-button>
     </form>
   </base-card>
 </template>
@@ -33,6 +49,7 @@ export default {
       enteredTitle: '',
       enteredDesc: '',
       enteredLink: '',
+      inputIsInvalid: false,
     };
   },
   inject: ['addResource'],
@@ -44,10 +61,17 @@ export default {
         this.enteredDesc.trim() === '' ||
         this.enteredLink.trim() === ''
       ) {
+        this.inputIsInvalid = true;
         return;
       }
 
       this.addResource(this.enteredTitle, this.enteredDesc, this.enteredLink);
+      this.enteredTitle = '';
+      this.enteredDesc = '';
+      this.enteredLink = '';
+    },
+    confirmError() {
+      this.inputIsInvalid = false;
     },
   },
 };
@@ -67,7 +91,7 @@ div input,
 div textarea {
   width: 100%;
   padding: 10px;
-  border: none;
+  border: 1px solid #ccc;
   border-radius: 8px;
   margin-bottom: 6px;
   font-family: inherit;
