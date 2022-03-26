@@ -5,7 +5,7 @@
         <header>
           <h3>{{ title }}</h3>
           <!-- base button can also accept a prop named mode and we can change the looks of the button -->
-          <base-button>Delete</base-button>
+          <base-button @click="deleteResource(id)">Delete</base-button>
         </header>
         <p>{{ description }}</p>
         <nav>
@@ -31,7 +31,11 @@ export default {
       type: String,
       required: true,
     },
+    id: {
+      required: true,
+    },
   },
+  inject: ['deleteResource'],
 };
 </script>
 
@@ -51,10 +55,10 @@ p {
 a {
   text-decoration: none;
   font-weight: bold;
-  color: #ff8080;
+  color: #6bcb77;
 }
 a:hover,
 a:active {
-  color: #e05858;
+  color: #76dd83;
 }
 </style>

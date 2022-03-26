@@ -58,6 +58,15 @@ export default {
       this.storedResources.unshift(newResource);
       this.selectedTab = 'stored-resources';
     },
+    deleteResource(id) {
+      // The below approach wont work at it creates a whole new array but the provide and inject points to different array in memory and hence they only work with the old array
+      // this.storedResources = this.storedResources.filter(
+      //   (item) => item.id !== id
+      // );
+
+      this.storedResources.splice(id, 1);
+      console.log(this.storedResources.length);
+    },
   },
   components: {
     StoredResources,
@@ -67,14 +76,15 @@ export default {
     return {
       resources: this.storedResources,
       addResource: this.addResource,
+      deleteResource: this.deleteResource,
     };
   },
   computed: {
     storedResButtonMode() {
-      return this.selectedTab === 'stored-resources' ? null : 'flat';
+      return this.selectedTab === 'stored-resources' ? 'success' : 'flat';
     },
     addResButtonMode() {
-      return this.selectedTab === 'add-resource' ? null : 'flat';
+      return this.selectedTab === 'add-resource' ? 'success' : 'flat';
     },
   },
 };
